@@ -1,0 +1,119 @@
+" sudo apt install gnome-vim
+" VIM version 8.1.115
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'sentientmachine/Pretty-Vim-Python'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'lervag/vimtex'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin '907th/vim-auto-save'
+Plugin 'scrooloose/nerdtree'
+Plugin 'skywind3000/asyncrun.vim'
+Plugin 'maralla/completor.vim' "disabled as it complains about lack of lambda package
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+nmap , :
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
+
+syntax on
+filetype indent plugin on
+
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+
+"colorscheme desert
+colorscheme molokai
+highlight Comment cterm=bold
+"highlight Comment cterm=bold
+
+let mapleader=","
+set nu
+set mouse=a
+
+nnoremap ,p :!pdflatex % > \dev\null <CR>
+nnoremap ,o :!pdflatex %<CR>
+nnoremap ,e :!python ./problem3.py > \dev\null <CR>
+nnoremap ,i :set paste<CR>
+
+set wrap
+set textwidth=100
+
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+
+" make a statusline
+hi StatusLine ctermbg=red ctermfg=black
+set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+set laststatus=2 "put statusline two lines up
+
+" let the tab at the top reflect the current file being edited
+let &titlestring = @
+autocmd BufEnter * let &titlestring = ' ' . expand("%F:t")
+set title
+
+imap jk <Esc>
+
+
+"set list
+" making it possible to see cursor when highlighting matching
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+" NOTE show whitespace with :set list
+
+" create abbreviations for math. when you type the space, vim will expand
+
+
+" automatically create equation environment. Used in inesrt mode
+autocmd FileType tex    map!;b <ESC>bywi\begin{<ESC>ea}<CR>\end{}<ESC>PO
+autocmd FileType tex    map!;m \begin{align}<Return>\end{align}<ESC>O 
+
+
+" allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
+
+
+
+let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI", "CursorHold"]
+" AutoSave is disabled by default, run :AutoSaveToggle to enable/disable it.
+set updatetime=750
+" \ll in normal mode to get   
+" \lv
+" vim --servername vim test.tex
+" ci} {asdf}
+" cit <h2></h2> 
+" dac \boldface\mu ->  \mu (command)
+" cse  change surrounding environment
