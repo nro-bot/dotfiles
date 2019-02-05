@@ -23,7 +23,8 @@ Plugin 'nikvdp/ejs-syntax'              "javascript syntax highlighting
 Plugin 'maralla/completor.vim'   "autocomplete - make sure to run 'pip install jedi'
 "Plugin 'nvie/vim-flake8'
 Plugin 'w0rp/ale' "requires pip install black, pip install pylint, flake8
-
+Plugin 'kshenoy/vim-signature' "Plugin to toggle, display and navigate marks
+Plugin 'markonm/traces.vim' "Range, pattern and substitute preview for Vim
 
 " MUST tell completor local python library, e.g. in the virtualenv, for context
 " of python installed library functions to appear
@@ -55,7 +56,7 @@ nmap , :
 command WQ wq
 command Wq wq
 command W w
-command Q q
+command Q qa
 
 
 syntax on
@@ -77,6 +78,8 @@ set nu
 set mouse=a
 
 nnoremap ,o :!pdflatex %<CR>
+nnoremap ,t :tabedit
+nnoremap ,v :vsplit
 
 set wrap
 set textwidth=80
@@ -128,7 +131,6 @@ set updatetime=750
 " dac \boldface\mu ->  \mu (command)
 " cse  change surrounding environment
 
-
 " Bind F5 to save file if modified and execute python script in a buffer.
 "nnoremap <silent> <F5> :call SaveAndExecutePython()<CR>
 "vnoremap <silent> <F5> :<C-u>call SaveAndExecutePython()<CR>
@@ -139,11 +141,51 @@ nnoremap ,e :!python %<cr>
 
 
 
+let g:asyncrun_open = 5 "open qf iwindow at 5 line height
 augroup SPACEVIM_ASYNCRUN
     autocmd!
     " Automatically open the quickfix window
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+    "autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+    "autocmd User AsnycRunPre vertical right
+    "autocmd User AsyncRunStart vertical botright
+    "autocmd User AsyncRunStop wincmd H
+    "autocmd User AsyncRunStop wincmd R
+    "autocmd User AsyncRunStop wincmd R
+    "
+    "
+    "function! OpenErrors(job_id, data, event)
+"    " Store the original window number
+    "let l:winnr = winnr()
+
+    "" Open a window to show the current list of errors
+
+    "" If focus changed, jump to the last window
+    "if l:winnr !=# winnr()
+        "wincmd p
+    "endif
+"endfunction
+    silent! autocmd User AsyncRunPre copen
+    "autocmd User AsyncRunPre exec "resize 200"
+    autocmd User AsyncRunStop call RestorePreviewWindowHeight()
+    "autocmd User AsyncRunStop exec "resize 200"
+    autocmd User AsyncRunStop wincmd L
+    autocmd User AsyncRunStop wincmd w
+    ":echo filter(getwininfo(), 'v:val.quickfix && !v:val.loclist')
 augroup END
+augroup vimrc
+    "autocmd QuickFixCmdPost * botright copen 8
+augroup END
+
+function! RestorePreviewWindowHeight()
+    " https://stackoverflow.com/questions/13707052/quickfix-preview-window-resizing
+  silent! wincmd P "jump to preview, but don't show error
+  if &previewwindow
+    exec "resize" &previewheight
+    wincmd p "jump back
+  endif
+  wincmd =
+endfunction
+
 
 function! s:compile_and_run()
 	set splitright
@@ -159,13 +201,12 @@ function! s:compile_and_run()
     elseif &filetype == 'python'
        exec "AsyncRun! time python %"
     endif
-    " ctrl-w H to move split to right
-    "autocmd FileType qf wincmd L "move quickfix window to right
     "http://liuchengxu.org/posts/use-vim-as-a-python-ide/
 endfunction
 
-"au FileType qf wincmd H
-"au FileType qf :vertical resize 50
+
+"au FileType qf wincmd L
+"au FileType qf :resize 200
 "au FileType qf wincmd R
 
 
@@ -196,9 +237,10 @@ set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" fixers: black
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black', 'autopep8'],
+\   'python': ['autopep8'],
 \}
 
 let g:ale_python_flake8_options="--ignore=E501,F401,W601,E266,W0611,E265,E402,W504"
@@ -206,11 +248,15 @@ let g:ale_python_flake8_options="--ignore=E501,F401,W601,E266,W0611,E265,E402,W5
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
 let g:ale_open_list = 1 " list in the quickfix window, all the errors
-"let g:ale_set_loclist = 0
-"let g:ale_set_quickfix = 1
-" Set this in your vimrc file to disabling highlighting
-let g:ale_set_highlights = 1
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+"let g:ale_echo_cursor = 0 " https://github.com/w0rp/ale/issues/1470
+" Set this in your vimrc file to disabling highlighting (0)
+hi StatusLine ctermbg=blue ctermfg=black
+highlight ALEWarning ctermbg=Blue
+let g:ale_set_highlights = 0
 "let g:autopep8_ignore="E501,W293"
 
 " Show 5 lines of errors (default: 10)
