@@ -1,4 +1,5 @@
 " -------------------------------
+" HAS VIM shortcuts to ease pinky pain due to shoddy stiff keyboard
 
 filetype off                  " required
 
