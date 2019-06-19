@@ -1,4 +1,5 @@
-set nocompatible              " be iMproved, required
+" -------------------------------
+
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -9,22 +10,26 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'sentientmachine/Pretty-Vim-Python' "better syntax highlighting
-Plugin 'scrooloose/nerdcommenter' 
+Plugin 'sentientmachine/Pretty-Vim-Python' "better syntax highlighting (e.g. molokai)
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'lervag/vimtex'                  "for latex; shortcuts: https://github.com/lervag/vimtex
 Plugin 'Vimjas/vim-python-pep8-indent'  "better pip8 indenting (for long arguments)
 Plugin '907th/vim-auto-save'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'nikvdp/ejs-syntax'              "javascript syntax highlighting 
+Plugin 'nikvdp/ejs-syntax'              "javascript syntax highlighting
+Plugin 'rafi/awesome-vim-colorschemes'
 
-Plugin 'vim-syntastic/syntastic' "PEP8 checks 
+"Plugin 'vim-syntastic/syntastic' "PEP8 checks
 Plugin 'maralla/completor.vim'   "autocomplete - make sure to run 'pip install jedi'
-
+"Plugin 'nvie/vim-flake8'
+Plugin 'w0rp/ale' "requires pip install black, pylint, flake8, autopep8
+Plugin 'kshenoy/vim-signature' "Plugin to toggle, display and navigate marks
+Plugin 'markonm/traces.vim' "Range, pattern and substitute preview for Vim
 
 " MUST tell completor local python library, e.g. in the virtualenv, for context
 " of python installed library functions to appear
-let g:completor_python_binary = '/home/rui/v3/lib/python3.6' 
+let g:completor_python_binary = '/home/rui/v3/lib/python3.6'
 let g:completor_python_binary = '/home/rui/v3/bin/python'
 
 
@@ -52,7 +57,7 @@ nmap , :
 command WQ wq
 command Wq wq
 command W w
-command Q q
+command Q qa
 
 
 syntax on
@@ -65,7 +70,8 @@ set softtabstop=4
 set autoindent
 
 "colorscheme desert
-colorscheme molokai
+"colorscheme OceanicNext
+colorscheme minimalist
 highlight Comment cterm=bold
 "highlight Comment cterm=bold
 
@@ -74,6 +80,8 @@ set nu
 set mouse=a
 
 nnoremap ,o :!pdflatex %<CR>
+nnoremap ,t :tabedit
+nnoremap ,v :vsplit
 
 set wrap
 set textwidth=80
@@ -107,40 +115,93 @@ hi MatchParen cterm=bold ctermbg=none ctermfg=none
 " create abbreviations for math. when you type the space, vim will expand
 
 
-" automatically create equation environment. Used in inesrt mode
+" automatically create latex equation environment. Used in insert mode
 autocmd FileType tex    map!;b <ESC>bywi\begin{<ESC>ea}<CR>\end{}<ESC>PO
-autocmd FileType tex    map!;m \begin{align}<Return>\end{align}<ESC>O 
-autocmd FileType tex    map!;a \begin{answer}<Return>\end{answer}<ESC>O 
+autocmd FileType tex    map!;m \begin{align}<Return>a &= b<Return>\end{align}<ESC>O
+autocmd FileType tex    map!;i \begin{figure}[!t]<Return>\centering<Return>\includegraphics[width=0.4\linewidth]{images/fig.png}<Return>\caption{}<Return>\label{}<Return>\end{figure}<ESC>O
+"autocmd FileType tex    map!;a \begin{answer}<Return>\end{answer}<ESC>O
+"
+"autocmd FileType tex    map!;a \begin{align}<Return>\end{align}<ESC>O
+autocmd FileType tex    map!;x \begin{bmatrix}<Return>\end{bmatrix}<ESC>O
 
+"%\begin{figure}[!t]
+"%\centering
+"%\includegraphics[width=2.5in]{myfigure}
+"% where an .eps filename suffix will be assumed under latex, 
+"% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+"% via \DeclareGraphicsExtensions.
+"%\caption{Simulation results for the network.}
+"%\label{fig_sim}
+"%\end{figure}
 
 
 let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI", "CursorHold"]
 " AutoSave is disabled by default, run :AutoSaveToggle to enable/disable it.
 set updatetime=750
-" \ll in normal mode to get   
+" \ll in normal mode to get
 " \lv
 " vim --servername vim test.tex
 " ci} {asdf}
-" cit <h2></h2> 
+" cit <h2></h2>
 " dac \boldface\mu ->  \mu (command)
 " cse  change surrounding environment
-
+" csc change surrounding command
 
 " Bind F5 to save file if modified and execute python script in a buffer.
 "nnoremap <silent> <F5> :call SaveAndExecutePython()<CR>
 "vnoremap <silent> <F5> :<C-u>call SaveAndExecutePython()<CR>
-"nnoremap ,p :w<CR>:!clear;python %<CR> 
+"nnoremap ,p :w<CR>:!clear;python %<CR>
 nnoremap ,p :call <SID>compile_and_run()<CR>
 nnoremap ,e :!python %<cr>
 " botright vertical pedit.
 
 
 
+let g:asyncrun_open = 5 "open qf iwindow at 5 line height
 augroup SPACEVIM_ASYNCRUN
     autocmd!
     " Automatically open the quickfix window
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+    "autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+    "autocmd User AsnycRunPre vertical right
+    "autocmd User AsyncRunStart vertical botright
+    "autocmd User AsyncRunStop wincmd H
+    "autocmd User AsyncRunStop wincmd R
+    "autocmd User AsyncRunStop wincmd R
+    "
+    "
+    "function! OpenErrors(job_id, data, event)
+"    " Store the original window number
+    "let l:winnr = winnr()
+
+    "" Open a window to show the current list of errors
+
+    "" If focus changed, jump to the last window
+    "if l:winnr !=# winnr()
+        "wincmd p
+    "endif
+"endfunction
+    silent! autocmd User AsyncRunPre copen
+    "autocmd User AsyncRunPre exec "resize 200"
+    autocmd User AsyncRunStop call RestorePreviewWindowHeight()
+    "autocmd User AsyncRunStop exec "resize 200"
+    autocmd User AsyncRunStop wincmd L
+    autocmd User AsyncRunStop wincmd w
+    ":echo filter(getwininfo(), 'v:val.quickfix && !v:val.loclist')
 augroup END
+augroup vimrc
+    "autocmd QuickFixCmdPost * botright copen 8
+"augroup END
+
+function! RestorePreviewWindowHeight()
+    " https://stackoverflow.com/questions/13707052/quickfix-preview-window-resizing
+  silent! wincmd P "jump to preview, but don't show error
+  if &previewwindow
+    exec "resize" &previewheight
+    wincmd p "jump back
+  endif
+  wincmd =
+endfunction
+
 
 function! s:compile_and_run()
 	set splitright
@@ -156,14 +217,25 @@ function! s:compile_and_run()
     elseif &filetype == 'python'
        exec "AsyncRun! time python %"
     endif
-    " ctrl-w H to move split to right
-    "autocmd FileType qf wincmd L "move quickfix window to right
     "http://liuchengxu.org/posts/use-vim-as-a-python-ide/
 endfunction
 
-"au FileType qf wincmd H
-"au FileType qf :vertical resize 50
-"au FileType qf wincmd R
+
+function! s:create_latex_ToC()
+    let @a=''
+    g/\\\(part\|chapter\|section\|subsection\|subsubsection\|paragraph\|subparagraph\)\>/y A
+    wincmd n
+    put a
+    %s/section//g
+    %s/sub/*/g
+    wincmd H "change from horizontal split, to vertical split
+    wincmd R
+    wincmd W
+endfunction
+
+nnoremap ,t :call <SID>create_latex_ToC()<CR>
+
+
 
 
 map <Leader>n :NERDTreeToggle<CR>
@@ -188,24 +260,43 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-" Avoid side effects when it was already reset.
-if &compatible
-  set nocompatible
-endif
-" ------------------------------- 
-
-
-" Recommended settings for new syntastic users 
+" Recommended settings for new syntastic users
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" fixers: black
+let g:ale_fixers = {
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'python': ['autopep8']
+            \ }
+", 'black'],
 
-let g:syntastic_loc_list_height=3
+let g:ale_python_flake8_options="--ignore=E501,F401,W601,E266,W0611,E265,E402,W504,E226"
+let g:pymode_lint_ignore=["E501","W601", "E266", "W0611", "E265", "E402", "E226"]
 
+"let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
+let g:ale_open_list = 1 " list in the quickfix window, all the errors
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+"let g:ale_echo_cursor = 0 " https://github.com/w0rp/ale/issues/1470
+" Set this in your vimrc file to disabling highlighting (0)
+hi StatusLine ctermbg=blue ctermfg=black
+highlight ALEWarning ctermbg=Blue
+let g:ale_set_highlights = 0
+"let g:autopep8_ignore="E501,W293"
+
+" Show 5 lines of errors (default: 10)
+let g:ale_list_window_size = 3
+
+"'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
+"'autopep8' - Fix PEP8 issues with autopep8.
+"'black' - Fix PEP8 issues with black.
+"'isort' - Sort Python imports with isort.
+"'yapf' - Fix Python files with yapf.
+"'remove_trailing_lines' - Remove all blank lines at the end of a file.
+"'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+"
+let g:NERDCustomDelimiters = { 'arduino': { 'left': '// ','right': '' } }
