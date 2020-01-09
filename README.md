@@ -9,3 +9,9 @@ My personal set-up scripts. I wrote about these in this [accompanying article](h
 * `programs.sh` is for other software
 * `desktop.sh` is for GNOME desktop settings
 * `setup.sh` runs all the scripts and an `apt upgrade` 
+
+## TODO
+
+- fix cat rsa pub
+- fix vimrc (update to new with ,s)
+- not middle click copying out of vim

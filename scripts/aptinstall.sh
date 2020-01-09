@@ -43,7 +43,7 @@ install python3-pip
 
 # Snaps
 install snapd
-sudo snap install code
+sudo snap install code --classic
 #sudo snap install 
 
 install python-numpy 

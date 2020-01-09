@@ -25,8 +25,8 @@ alias gpl='git pull'
 alias gs='git status'
 
 alias mkenv='python3 -m venv env'
-alias senv = 'source ~/v3/bin/activate'
-alias startenv ='source env/bin/activate && which python3'
+alias senv='source ~/v3/bin/activate'
+alias startenv='source env/bin/activate && which python3'
 alias stopenv='deactivate'
 
 # Use programs without a root-equivalent group
@@ -40,7 +40,7 @@ function cd () {
 
 # Add GitLab remote to cwd git
 function glab () {
-    git remote set-url origin --add git@gitlab.com:victoriadrake/"${PWD##*/}".git
+    git remote set-url origin --add git@gitlab.com:nouyang/"${PWD##*/}".git
     git remote -v
 }
 
@@ -48,7 +48,7 @@ function glab () {
 export EDITOR=/usr/bin/vim
 
 # Bash completion
-source ~/.git-completion.bash
+# source ~/.git-completion.bash # NOTE: not sure what this is
 
 # Color prompt
 export TERM=xterm-256color
@@ -135,3 +135,5 @@ copython() {
 }
 
 alias tt='~/terminalTimer.sh'
+
+source /usr/share/autojump/autojump.bash
