@@ -64,12 +64,23 @@ fi
 export TERM=xterm-256color
 
 
+# --
+# Notes on bash colors
+#txtred='\[\e[0;31m\]' # Red
+#txtgrn='\[\e[0;32m\]' # Green
+#txtylw='\[\e[0;93m\]' # Yellow
+#txtblu='\[\e[0;34m\]' # Blue
+
 # ---
 # Git prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWCOLORHINTS=1
-export PS1='\t \[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+
+# green, blue, red:
+#export PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+# yellow time, green username, blue location, red git branch:
+export PS1='\[\033[93m\]\t \[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 # export PROMPT_COMMAND=date
 
 # ---
@@ -88,11 +99,11 @@ copython() {
 }
 
 
-
 # -----
 # Custom functions
 # -----
 source /usr/share/autojump/autojump.bash
 alias tt='~/terminalTimer.sh'
+alias now='~/nowWeather.sh'
 # Add an "alert" alias for long running commands.  Use like so $ sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+#alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

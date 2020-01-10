@@ -32,7 +32,7 @@ Plugin 'Vimjas/vim-python-pep8-indent'  "better pip8 indenting (for long argumen
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin '907th/vim-auto-save'
-Plugin 'camelcasemotion' "w e navigate underscores better 
+Plugin 'camelcasemotion' "w e navigate underscores better
 "Plugin 'skywind3000/asyncrun.vim'  "run python file
 Plugin 'trotter/autojump.vim'
 
@@ -131,7 +131,7 @@ let &t_Co = 256 " terminal colors -- fix colorscheme issues
 "
 let mapleader=","
 set nu
-set mouse=r " allow middleclick paste
+set mouse=a " allow middleclick paste
 
 imap jk <Esc>
 

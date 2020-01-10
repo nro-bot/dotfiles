@@ -23,7 +23,7 @@ install htop
 install nmap
 install openvpn
 install tmux
-install vim
+install vim-gnome
 install exuberant-ctags
 
 # Image processing
