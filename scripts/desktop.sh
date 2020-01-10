@@ -15,6 +15,8 @@ gsettings set org.gnome.desktop.screensaver show-notifications false
 #gsettings set org.gnome.shell.overrides workspaces-only-on-primary false
 #gsettings set org.gnome.mutter dynamic-workspaces true
 #gsettings set org.gnome.mutter workspaces-only-on-primary false
+gsettings list-recursively
+org.gnome.desktop.wm.preferences focus-mode 'sloppy' #hover focuses window
 
 # GNOME extension to move bar to bottom
 sudo apt install -y gnome-tweaks chrome-gnome-shell
@@ -23,6 +25,8 @@ cd panel && make install
 cd ..
 rm -rf panel
 gnome-shell-extension-tool -e dash-to-panel
+
+git clone https://github.com/gTile/gTile.git ~/.local/share/gnome-shell/extensions/gTile@vibou
 
 # Now do the pretty stuff (`gsettings list-recursively` for all)
 #gsettings set org.gnome.shell favorite-apps "['ubiquity.desktop']"
@@ -37,4 +41,3 @@ gnome-shell-extension-tool -e dash-to-panel
 #cp ../img/lock.jpg ~/lock.jpg
 #gsettings set org.gnome.desktop.background picture-uri 'file:///home/v/desktop.jpg'
 #gsettings set org.gnome.desktop.screensaver picture-uri 'file:///home/v/lock.jpg'
-

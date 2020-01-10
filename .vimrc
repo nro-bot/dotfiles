@@ -131,7 +131,7 @@ let &t_Co = 256 " terminal colors -- fix colorscheme issues
 "
 let mapleader=","
 set nu
-set mouse=a
+set mouse=r " allow middleclick paste
 
 imap jk <Esc>
 
