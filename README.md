@@ -11,7 +11,8 @@ Put in root dir
 ```
 $ dotfiles/myscript.sh
 ```
-Edit `scripts/symlink.sh`
+Edit `scripts/symlink.sh` to link it to ~
+Edit ~/.bashrc to give it a short alias
 
 
 # Dotfiles and scripts that behave in much the same way that manual configurations don't
