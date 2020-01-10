@@ -1,51 +1,62 @@
 " -------------------------------
+" Set up Vundle and packages
+" (ALE linting, autofix; completor for autocomplete; adding more themes)
+" -------------------------------
 
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+" ---- Vundle ----
+"  set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'sentientmachine/Pretty-Vim-Python' "better syntax highlighting (e.g. molokai)
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'lervag/vimtex'                  "for latex; shortcuts: https://github.com/lervag/vimtex
-Plugin 'Vimjas/vim-python-pep8-indent'  "better pip8 indenting (for long arguments)
-Plugin '907th/vim-auto-save'
-Plugin 'skywind3000/asyncrun.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'nikvdp/ejs-syntax'              "javascript syntax highlighting
+
+
+" -- Colors
+"Plugin 'nikvdp/ejs-syntax'              "javascript syntax highlighting
+"Plugin 'sentientmachine/Pretty-Vim-Python' "better syntax highlighting (e.g. molokai)
 Plugin 'rafi/awesome-vim-colorschemes'
 
-"Plugin 'vim-syntastic/syntastic' "PEP8 checks
-Plugin 'maralla/completor.vim'   "autocomplete - make sure to run 'pip install jedi'
-"Plugin 'nvie/vim-flake8'
-Plugin 'w0rp/ale' "requires pip install black, pylint, flake8, autopep8
+
+" -- Python coloring
+Plugin 'xolox/vim-easytags' "Better 'goto-definition'
+Plugin 'xolox/vim-misc' "Required for easytags
+Plugin 'vim-python/python-syntax'
+Plugin 'Vimjas/vim-python-pep8-indent'  "better pip8 indenting (for long arguments)
+
+
+" -- Improve vim
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin '907th/vim-auto-save'
+Plugin 'camelcasemotion' "w e navigate underscores better 
+"Plugin 'skywind3000/asyncrun.vim'  "run python file
+Plugin 'trotter/autojump.vim'
+
+
+" -- Vim visual aids
 Plugin 'kshenoy/vim-signature' "Plugin to toggle, display and navigate marks
 Plugin 'markonm/traces.vim' "Range, pattern and substitute preview for Vim
-Plugin 'tpope/vim-fugitive'
-Plugin 'sheerun/vim-polyglot'
 
+
+" -- Typo helpers
+"Plugin 'vim-syntastic/syntastic' "PEP8 checks
+Plugin 'w0rp/ale' "requires pip install black, pip install pylint, flake8
+Plugin 'maralla/completor.vim'   "autocomplete - make sure to run 'pip install jedi'
 " MUST tell completor local python library, e.g. in the virtualenv, for context
 " of python installed library functions to appear
-let g:completor_python_binary = '/home/rui/v3/lib/python3.6'
-let g:completor_python_binary = '/home/rui/v3/bin/python'
+let g:completor_python_binary = '~/v3/bin/python'
 
 
-" The following are examples of different formats supported.
+
 " Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Plugin 'lervag/vimtex'
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
+
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -53,17 +64,45 @@ filetype plugin indent on    " required
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
+" -------------------------------
+"  END Vundle
+" -------------------------------
+
+
+" Put your non-Plugin stuff after this line
+" -------------------------------
+" Allow moving between splits easier
+" NOTE: doesn't work, not sure why
+"nmap <silent> <A-Up> :wincmd k<CR>
+"nmap <silent> <A-Down> :wincmd j<CR>
+"nmap <silent> <A-Left> :wincmd h<CR>
+"nmap <silent> <A-Right> :wincmd l<CR>
+
+map <C-J> <C-W>j<C-W>
+map <C-K> <C-W>k<C-W>
+map <C-H> <C-W>h<C-W>
+map <C-L> <C-W>l<C-W>
+
+
+" -------------------------------
 nmap , :
+" attempt to make paragraph move not require shift; works on *.md but not *.py
+"nmap [ {
+"nmap ] }
+nmap - {
+nmap = }
+
 command WQ wq
 command Wq wq
 command W w
 command Q qa
 
-
+" -------------------------------
+" Set preferences for python
 syntax on
 filetype indent plugin on
+
 
 set tabstop=4
 set expandtab
@@ -71,77 +110,89 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 
-"colorscheme desert
-"colorscheme OceanicNext
-colorscheme PaperColor
-"colorscheme minimalist
-highlight Comment cterm=bold
-"highlight Comment cterm=bold
-
-let mapleader=","
-set nu
-set mouse=a
-
-nnoremap ,o :!pdflatex %<CR>
-nnoremap ,t :tabedit
-nnoremap ,v :vsplit
 
 set wrap
 set textwidth=80
 set colorcolumn=80 " display line at textwidth
 
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" -------------------------------
+" Colorscheme
+"colorscheme desert
+"colorscheme molokai
+colorscheme gruvbox
+"colorscheme OceanicNext
+"colorscheme happy_hacking
+set background=dark
+
+let &t_Co = 256 " terminal colors -- fix colorscheme issues
 
 
-" make a statusline
+"
+let mapleader=","
+set nu
+set mouse=a
+
+imap jk <Esc>
+
+"nnoremap ,o :!pdflatex %<CR>
+nnoremap ,t :tabedit
+nnoremap ,s :tabedit ~/.vimrc<CR> " vim settings
+nnoremap ,v :vsplit
+nnoremap ,l :lclose " close location window (where ALE displays errors)
+nnoremap ,o :colorscheme
+nnoremap ,m :mksession! ~/session.vim
+nnoremap ,r :source ~/session.vim
+
+map <Leader>n :NERDTreeToggle<CR>
+
+"set iskeyword-=_
+highlight Comment cterm=bold
+"highlight Comment cterm=bold
+" -------------------------------
+
+
+" -------------------------------
+" Fold settings
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
+
+" -------------------------------
+" Statusline
+" -------------------------------
 hi StatusLine ctermbg=red ctermfg=black
-set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+"set statusline+=%{g:Catium()}
 set laststatus=2 "put statusline two lines up
 
+
+let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
+" Set this in your vimrc file to disabling highlighting (0)
+hi StatusLine ctermbg=blue ctermfg=black
+highlight ALEWarning ctermbg=Blue
+
+" -------------------------------
 " let the tab at the top reflect the current file being edited
 let &titlestring = @%
 set title
 
-imap jk <Esc>
-
-
-"set list
+" -------------------------------
 " making it possible to see cursor when highlighting matching
 "hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 hi MatchParen cterm=bold ctermbg=none ctermfg=none
-
 " NOTE show whitespace with :set list
 
-" create abbreviations for math. when you type the space, vim will expand
 
-
-" automatically create latex equation environment. Used in insert mode
-autocmd FileType tex    setlocal spell spelllang=en_us
+" -------------------------------
+" LATEX automatically create equation environment. Used in inesrt mode
 autocmd FileType tex    map!;b <ESC>bywi\begin{<ESC>ea}<CR>\end{}<ESC>PO
-autocmd FileType tex    map!;m \begin{align}<Return>a &= b\\<Return>\end{align}<ESC>
-autocmd FileType tex    map!;i \begin{figure}[!t]<Return>\centering<Return>\includegraphics[width=0.4\linewidth]{images/fig.png}<Return>\caption{}<Return>\label{}<Return>\end{figure}<ESC>O
-"autocmd FileType tex    map!;a \begin{answer}<Return>\end{answer}<ESC>O
-"
-"autocmd FileType tex    map!;a \begin{align}<Return>\end{align}<ESC>O
-autocmd FileType tex    map!;x \begin{bmatrix}<Return>\end{bmatrix}<ESC>O
-
-"%\begin{figure}[!t]
-"%\centering
-"%\includegraphics[width=2.5in]{myfigure}
-"% where an .eps filename suffix will be assumed under latex, 
-"% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-"% via \DeclareGraphicsExtensions.
-"%\caption{Simulation results for the network.}
-"%\label{fig_sim}
-"%\end{figure}
+autocmd FileType tex    map!;m \begin{align}<Return>\end{align}<ESC>O
+autocmd FileType tex    map!;a \begin{answer}<Return>\end{answer}<ESC>O
 
 
-let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI", "CursorHold"]
-" AutoSave is disabled by default, run :AutoSaveToggle to enable/disable it.
-set updatetime=750
 " \ll in normal mode to get
 " \lv
 " vim --servername vim test.tex
@@ -149,8 +200,17 @@ set updatetime=750
 " cit <h2></h2>
 " dac \boldface\mu ->  \mu (command)
 " cse  change surrounding environment
-" csc change surrounding command
 
+" -------------------------------
+let g:auto_save = 0
+let g:auto_save_events = []
+"InsertLeave", "TextChanged", "TextChangedI", "CursorHold"]
+let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
+" AutoSave is disabled by default, run :AutoSaveToggle to enable/disable it.
+set updatetime=750
+
+" -------------------------------
+" Execute python file with vim keyboard shortcut
 " Bind F5 to save file if modified and execute python script in a buffer.
 "nnoremap <silent> <F5> :call SaveAndExecutePython()<CR>
 "vnoremap <silent> <F5> :<C-u>call SaveAndExecutePython()<CR>
@@ -194,7 +254,7 @@ augroup SPACEVIM_ASYNCRUN
 augroup END
 augroup vimrc
     "autocmd QuickFixCmdPost * botright copen 8
-"augroup END
+augroup END
 
 function! RestorePreviewWindowHeight()
     " https://stackoverflow.com/questions/13707052/quickfix-preview-window-resizing
@@ -225,36 +285,22 @@ function! s:compile_and_run()
 endfunction
 
 
-"function! s:create_latex_ToC()
-    "let @a=''
-    "g/\\\(part\|chapter\|section\|subsection\|subsubsection\|paragraph\|subparagraph\)\>/y A
-    "wincmd n
-    "put a
-    "%s/section//g
-    "%s/sub/*/g
-    "wincmd H "change from horizontal split, to vertical split
-    "wincmd R
-    "wincmd W
-"endfunction
-
-"nnoremap ,t :call <SID>create_latex_ToC()<CR>
+"au FileType qf wincmd L
+"au FileType qf :resize 200
+"au FileType qf wincmd R
 
 
-
-
-map <Leader>n :NERDTreeToggle<CR>
-
-set iskeyword-=_
-
-
-" ------------------------------- From vim -u DEFAULTS
+" -------------------------------
+" From vim -u DEFAULTS
 " (https://github.com/vim/vim/blob/master/runtime/defaults.vim)
-"
+
 " Show a few lines of context around the cursor.  Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
 set showcmd		" display incomplete commands
 set wildmenu		" display completion matches in a status line
+
+" -------------------------------
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
@@ -264,30 +310,75 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" Recommended settings for new syntastic users
-set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+
+" -------------------------------
+" ALE Settings
+" -------------------------------
 
 " fixers: black
 let g:ale_fixers = {
-            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'python': ['autopep8']
-            \ }
-", 'black'],
-set foldmethod=indent   
-set foldnestmax=10
-set nofoldenable
-set foldlevel=2
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['autopep8'],
+\}
 
-" add 24 colorsupport for themes
-" "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+" TODO
+let g:ale_keep_list_window_open = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed=0
 
-let &t_Co=256
+let g:ale_python_flake8_options="--ignore=E501,F401,W601,E226,W0611,E265,E402,W504,E241"
+let g:pymode_lint_ignore=["E501","W601", "E266", "W0611", "E402"]
 
-set background=dark
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_open_list = 1 " list in the quickfix window, all the errors
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+"let g:ale_echo_cursor = 0 " https://github.com/w0rp/ale/issues/1470
+"
+let g:ale_set_highlights = 0
+"let g:autopep8_ignore="E501,W293"
 
-let g:polyglot_disabled = ['latex']
+" Show 5 lines of errors (default: 10)
+let g:ale_list_window_size = 5
 
+"'add_blank_lines_for_python_control_statements' - Add blank lines before control statements.
+"'autopep8' - Fix PEP8 issues with autopep8.
+"'black' - Fix PEP8 issues with black.
+"'isort' - Sort Python imports with isort.
+"'yapf' - Fix Python files with yapf.
+"'remove_trailing_lines' - Remove all blank lines at the end of a file.
+"'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+"
+
+" -------------------------------
+" END ALE settings
+" Close location window when :q file
+" -------------------------------
+"  Removed
+"
+"
+" ----- EasyTags
+
+" Let Vim walk up directory hierarchy from CWD to root looking for tags file
+set tags=tags;/
+" Tell EasyTags to use the tags file found by Vim
+let g:easytags_dynamic_files = 1
+" Only update on save
+"let g:easytags_events = ['BufWritePost']
+
+
+"" ----
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+
+let g:python_highlight_all = 1
+
+"syn region FCall matchgroup=FName start='[[:alpha:]_]\i*\s*(' end=')' contains=FCall,FCallKeyword
+"syn match FCallKeyword /\i*\ze\s*=[^=]/ contained
+"hi FCallKeyword ctermfg=yellow
+"hi FName ctermfg=blue

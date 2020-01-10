@@ -24,6 +24,7 @@ install nmap
 install openvpn
 install tmux
 install vim
+install exuberant-ctags
 
 # Image processing
 install gimp
@@ -32,23 +33,24 @@ install optipng
 
 # Fun stuff
 install figlet
+install toilet
 install lolcat
 
 # Save thinkpad laptop battery
-install tlp 
+install tlp
 
 # Python
-install python3-venv 
+install python3-venv
 install python3-pip
 
 # Snaps
 install snapd
 sudo snap install code --classic
-#sudo snap install 
+#sudo snap install
 
-install python-numpy 
-install python-scipy 
-install python-matplotlib 
-install ipython 
-install jupyter 
+install python-numpy
+install python-scipy
+install python-matplotlib
+install ipython
+install jupyter
 install python-pandas #python-sympy python-nose spyder
