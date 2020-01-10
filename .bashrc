@@ -68,7 +68,9 @@ export TERM=xterm-256color
 # Git prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
-export PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+export GIT_PS1_SHOWCOLORHINTS=1
+export PS1='\t \[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+# export PROMPT_COMMAND=date
 
 # ---
 # Color python error output
