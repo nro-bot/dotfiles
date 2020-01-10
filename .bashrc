@@ -3,10 +3,16 @@
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
+
+# ------- CUSTOM BELOW ---------
+
 # append to the history file instead of overwrite
 shopt -s histappend
 
+# ----------------------
 # Aliases
+# ----------------------
+# -- Bash
 alias cp='cp -rv'
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls --color=auto -alh --group-directories-first'
@@ -15,6 +21,13 @@ alias mkdir='mkdir -pv'
 alias mv='mv -v'
 alias wget='wget -c'
 
+# -- Python 
+alias mkenv='python3 -m venv env'
+alias senv='source ~/v3/bin/activate'
+alias startenv='source env/bin/activate && which python3'
+alias stopenv='deactivate'
+
+# --- Git 
 alias ga='git add'
 alias gr='git rm'
 alias gaa='git add .'
@@ -23,11 +36,6 @@ alias gcmm='git commit --message'
 alias gp='git push'
 alias gpl='git pull'
 alias gs='git status'
-
-alias mkenv='python3 -m venv env'
-alias senv='source ~/v3/bin/activate'
-alias startenv='source env/bin/activate && which python3'
-alias stopenv='deactivate'
 
 # Use programs without a root-equivalent group
 # alias npm='sudo npm'
@@ -121,7 +129,9 @@ export PS1="${pathC}\w ${gitC}\$(gitBranch) ${pointerC}\$${normalC} "
 #    fi
 #}
 
-
+# --- 
+# Color python error output
+# --- 
 # see http://orangenarwhals.com/hexblog/2019/12/27/coloring-python-debug-output/
 norm="$(printf '\033[0m')" #returns to "normal"
 bold="$(printf '\033[0;1m')" #set bold
@@ -134,6 +144,12 @@ copython() {
     python $@ 2>&1 | sed -e "s/Traceback/${boldyellowonblue}&${norm}/g"  # will color any occurence of someregexp in Bold red
 }
 
-alias tt='~/terminalTimer.sh'
 
+
+# -----
+# Custom functions
+# -----
 source /usr/share/autojump/autojump.bash
+alias tt='~/terminalTimer.sh'
+# Add an "alert" alias for long running commands.  Use like so $ sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

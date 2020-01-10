@@ -12,6 +12,13 @@ My personal set-up scripts. I wrote about these in this [accompanying article](h
 
 ## TODO
 
-- fix cat rsa pub
++ fix cat rsa pub
 - fix vimrc (update to new with ,s)
-- not middle click copying out of vim
+- fix not middle click copying out of vim
+- fix mouse focus gsettings 
+- add font scale shortcut
+- change gnome-terminal to more pleasing scheme (not purple background vs light blue)
+- edit bashprompt to show there are git changes 
+- add in gTile somehow 
+
+notes: get used to ll, gcmm
