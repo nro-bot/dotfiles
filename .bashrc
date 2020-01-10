@@ -64,6 +64,7 @@ fi
 export TERM=xterm-256color
 
 
+# ---
 # Git prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
