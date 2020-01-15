@@ -94,10 +94,13 @@ boldyellowonblue="$(printf '\033[0;1;33;44m')" #set bold, and set red.
 boldyellow="$(printf '\033[0;1;33m')" #set bold, and set red.
 boldred="$(printf '\033[0;1;31m')" #set bold, and set red.
 
+# Color error messages from python, use as "copython test.py" instead of "python test.py"
+# WARNING: Takes time to run (small but noticeable)
 copython() {
-    python $@ 2>&1 | sed -e "s/Traceback/${boldyellowonblue}&${norm}/g"  # will color any occurence of someregexp in Bold red
+        python $@ 2>&1 | sed -e "s/Traceback/${boldyellowonblue}&${norm}/g" \
+        -e "s/File \".*\.py\".*$/${boldyellow}&${norm}/g" \
+        -e "s/\, line [[:digit:]]\+/${boldred}&${norm}/g"
 }
-
 
 # -----
 # Custom functions
