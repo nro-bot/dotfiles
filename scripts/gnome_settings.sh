@@ -5,7 +5,7 @@
 #gsettings set org.gnome.desktop.wm.keybindings maximize-horizontally "['<Alt>h']"
 #gsettings set org.gnome.settings-daemon.plugins.media-keys terminal '<Shift><Alt>t'
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
-gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 21.0
+gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 23.0
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to 6.0
 gsettings set org.gnome.desktop.session idle-delay 900
 gsettings set org.gnome.desktop.screensaver lock-enabled true
@@ -15,10 +15,14 @@ gsettings set org.gnome.desktop.screensaver show-notifications false
 #gsettings set org.gnome.shell.overrides workspaces-only-on-primary false
 #gsettings set org.gnome.mutter dynamic-workspaces true
 #gsettings set org.gnome.mutter workspaces-only-on-primary false
-gsettings list-recursively
 org.gnome.desktop.wm.preferences focus-mode 'sloppy' #hover focuses window
 
-# GNOME extension to move bar to bottom
+
+# GNOME Extensions
+# https://extensions.gnome.org/#
+mkdir -p ~/.local/share/gnome-shell/extensions
+
+# move bar to bottom
 sudo apt install -y gnome-tweaks chrome-gnome-shell
 git clone https://github.com/home-sweet-gnome/dash-to-panel.git panel
 cd panel && make install
@@ -27,6 +31,21 @@ rm -rf panel
 gnome-shell-extension-tool -e dash-to-panel
 
 git clone https://github.com/gTile/gTile.git ~/.local/share/gnome-shell/extensions/gTile@vibou
+gnome-shell-extension-tool -e gTile
+
+git clone https://github.com/roberth-k/gnome-shell-extension-battery_status.git 
+cd gnome-shell-extension-battery_status
+mv battery_status@milliburn.github.com
+~/.local/share/gnome-shell/extensions/battery_status@milliburn.github.com
+cd ..
+rm -rf gnome-shell-extension-battery_status
+gnome-shell-extension-tool -e battery_status
+
+
+sudo apt install gir1.2-gtop-2.0 lm-sensors
+git clone https://github.com/corecoding/Vitals.git ~/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com
+gnome-shell-extension-tool -e Vitals@CoreCoding.com
+
 
 # Now do the pretty stuff (`gsettings list-recursively` for all)
 #gsettings set org.gnome.shell favorite-apps "['ubiquity.desktop']"

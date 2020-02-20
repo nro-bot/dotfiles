@@ -1,4 +1,5 @@
-" -------------------------------
+"START_ -------------------------------
+"o
 " Set up Vundle and packages
 " (ALE linting, autofix; completor for autocomplete; adding more themes)
 " -------------------------------
@@ -34,7 +35,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin '907th/vim-auto-save'
 Plugin 'camelcasemotion' "w e navigate underscores better
 "Plugin 'skywind3000/asyncrun.vim'  "run python file
-Plugin 'trotter/autojump.vim'
+"Plugin 'trotter/autojump.vim'
 
 
 " -- Vim visual aids
@@ -48,7 +49,7 @@ Plugin 'w0rp/ale' "requires pip install black, pip install pylint, flake8
 Plugin 'maralla/completor.vim'   "autocomplete - make sure to run 'pip install jedi'
 " MUST tell completor local python library, e.g. in the virtualenv, for context
 " of python installed library functions to appear
-let g:completor_python_binary = '~/v3/bin/python'
+
 
 
 
@@ -98,6 +99,12 @@ command Wq wq
 command W w
 command Q qa
 
+" -------  Completor
+let g:completor_python_binary = '~/v3/bin/python'
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
 " -------------------------------
 " Set preferences for python
 syntax on
@@ -128,7 +135,6 @@ set background=dark
 let &t_Co = 256 " terminal colors -- fix colorscheme issues
 
 
-"
 let mapleader=","
 set nu
 set mouse=a " allow middleclick paste
@@ -146,9 +152,8 @@ nnoremap ,r :source ~/session.vim
 
 map <Leader>n :NERDTreeToggle<CR>
 
-"set iskeyword-=_
+"set iskeyword-=_ " DONT DO THIS messes with syntax highlighting; use camelcaseplugin
 highlight Comment cterm=bold
-"highlight Comment cterm=bold
 " -------------------------------
 
 
@@ -170,9 +175,7 @@ set laststatus=2 "put statusline two lines up
 
 
 let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
-" Set this in your vimrc file to disabling highlighting (0)
 hi StatusLine ctermbg=blue ctermfg=black
-highlight ALEWarning ctermbg=Blue
 
 " -------------------------------
 " let the tab at the top reflect the current file being edited
@@ -180,9 +183,10 @@ let &titlestring = @%
 set title
 
 " -------------------------------
-" making it possible to see cursor when highlighting matching
-"hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-hi MatchParen cterm=bold ctermbg=none ctermfg=none
+set nohlsearch
+hi Search guibg=LightBlue
+" making it possible to see cursor when highlighting matching parenthesis
+"hi MatchParen cterm=bold ctermbg=none ctermfg=none
 " NOTE show whitespace with :set list
 
 
@@ -216,7 +220,7 @@ set updatetime=750
 "vnoremap <silent> <F5> :<C-u>call SaveAndExecutePython()<CR>
 "nnoremap ,p :w<CR>:!clear;python %<CR>
 nnoremap ,p :call <SID>compile_and_run()<CR>
-nnoremap ,e :!python %<cr>
+" nnoremap ,e :!python %<cr>
 " botright vertical pedit.
 
 
@@ -317,26 +321,35 @@ endif
 
 " fixers: black
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['autopep8'],
-\}
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'python': []
+            \}
+"'autopep8'],
 
-" TODO
+":help ale-python-flake8
+":help ale-integration-options
 let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_enter = 0
-let g:ale_lint_on_filetype_changed=0
+let g:ale_lint_on_filetype_changed = 0
 
-let g:ale_python_flake8_options="--ignore=E501,F401,W601,E226,W0611,E265,E402,W504,E241"
-let g:pymode_lint_ignore=["E501","W601", "E266", "W0611", "E402"]
+let g:ale_linters = {'python': ['flake8']} ", 'pep8']}
+"let g:ale_linters_ignore = ['pylint']
+"
+"let g:ale_python_flake8_options="--ignore=E501,F401,W601,E226,W0611,E265,E402,W504,E241"
+let g:ale_python_flake8_options="--ignore=E501,F401,W601,E226,W0611,E265,E402,W504,E241 --select=F,C"
+"let g:ale_python_flake8_option s= '--ignore=E,W,F403,F405 --select=F,C'
+"let g:ale_python_flake8_options='--ignore=W,F' "F403,F405'
+"let g:ale_type_map = {'flake8': {'ES': 'WS', 'E': 'W'}}
 
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1 " list in the quickfix window, all the errors
+
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 "let g:ale_echo_cursor = 0 " https://github.com/w0rp/ale/issues/1470
-"
-let g:ale_set_highlights = 0
+" solve by "updateing vim from PPA
+
 "let g:autopep8_ignore="E501,W293"
 
 " Show 5 lines of errors (default: 10)
@@ -349,7 +362,15 @@ let g:ale_list_window_size = 5
 "'yapf' - Fix Python files with yapf.
 "'remove_trailing_lines' - Remove all blank lines at the end of a file.
 "'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
-"
+
+" -- Highlighting
+"let g:python_highlight_all = 1 " python-syntax module specific
+let g:python_highlight_space_errors = 0 " don't highlight whitespace
+
+" Set this in your vimrc file to disabling highlighting (0)
+highlight ALEWarningSign ctermbg=DarkMagenta
+highlight ALEErrorSign ctermbg=Blue
+let g:ale_set_highlights = 1 " Gutter highlights
 
 " -------------------------------
 " END ALE settings
@@ -365,7 +386,9 @@ set tags=tags;/
 " Tell EasyTags to use the tags file found by Vim
 let g:easytags_dynamic_files = 1
 " Only update on save
-"let g:easytags_events = ['BufWritePost']
+let g:easytags_events = ['BufWritePost']
+:let g:easytags_resolve_links = 1 " symbolic links
+let g:easytags_suppress_report = 1 "was interfering with moving in file after write
 
 
 "" ----
@@ -376,7 +399,6 @@ sunmap w
 sunmap b
 sunmap e
 
-let g:python_highlight_all = 1
 
 "syn region FCall matchgroup=FName start='[[:alpha:]_]\i*\s*(' end=')' contains=FCall,FCallKeyword
 "syn match FCallKeyword /\i*\ze\s*=[^=]/ contained

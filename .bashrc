@@ -31,11 +31,12 @@ alias stopenv='deactivate'
 alias ga='git add'
 alias gr='git rm'
 alias gaa='git add .'
-alias gcm='git commit'
-alias gcmm='git commit --message'
+alias gcmm='git commit'
+alias gcm='git commit --message'
 alias gp='git push'
 alias gpl='git pull'
 alias gs='git status'
+alias gco='git checkout'
 
 # Use programs without a root-equivalent group
 # alias npm='sudo npm'
@@ -105,5 +106,27 @@ copython() {
 source /usr/share/autojump/autojump.bash
 alias tt='~/terminalTimer.sh'
 alias now='~/nowWeather.sh'
+
+alias scalef='gsettings set org.gnome.desktop.interface text-scaling-factor'
+
 # Add an "alert" alias for long running commands.  Use like so $ sleep 10; alert
 #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+export TODO=~/.todo
+#touch $TODO
+function todo() { if [ $# == "0" ]; then cat $TODO; else echo "• $@" >> $TODO; fi }
+#function todone() { sed -i -e "/$*/d" $TODO; }
+
+# version with numbers
+#function todo() { if [ $# == "0" ]; then cat $TODO; else n=$(($(tail -1 $TODO | cut -d ' ' -f 1)+1)); echo "$n ⇾ $@" >> $TODO; fi }
+function todone() { sed -i -e "/$*/d" $TODO; }
+
+
+# Persist agents
+
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval `ssh-agent`
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l > /dev/null || ssh-add

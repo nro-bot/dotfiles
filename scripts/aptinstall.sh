@@ -23,21 +23,37 @@ install htop
 install nmap
 install openvpn
 install tmux
-install vim-gnome
+#install vim-gnome
 install exuberant-ctags
+install tree
+install autojump
+
+# Latest vim
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt-get update
+install vim
 
 # Image processing
-install gimp
 install jpegoptim
 install optipng
+
+# Media
+install gimp
+install inkscape
+install ffmpeg
 
 # Fun stuff
 install figlet
 install toilet
 install lolcat
 
+# TerminalTimer
+install festival
+install sox
+
 # Save thinkpad laptop battery
-install tlp
+# install tlp
+# sudo tlp setcharge 70 80 BAT0
 
 # Python
 install python3-venv
@@ -48,9 +64,25 @@ install snapd
 sudo snap install code --classic
 #sudo snap install
 
+
+# Data science 
 install python-numpy
 install python-scipy
 install python-matplotlib
 install ipython
 install jupyter
-install python-pandas #python-sympy python-nose spyder
+install python-pandas 
+#python-sympy python-nose spyder
+
+
+# Blog
+# sudo snap install node --classic --channel=12
+# npm install hexo-cli -g
+
+# Settings
+install dconf-editor
+
+# Chinese
+install fcitx-googlepinyin
+
+

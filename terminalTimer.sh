@@ -1,3 +1,6 @@
+# Need: sudo apt install toilet, festival, sox, and download sound file from
+# http://soundbible.com/1630-Computer-Magic.htmland download
+
 # script to create timer in terminal
 # Jason Atwood
 # 2013/6/22
@@ -43,9 +46,10 @@ while [ -1 ]; do
         notify-send "Time's up! $((DURATION/60)) minutes"
         #spd-say ""
         #spd-say "Your time is up! $((DURATION/60)) minutes"
-        echo "Your time is up! $((DURATION/60)) minutes" | festival --tts
+        play "./Computer_Magic_Microsoft.wav"
+        #echo "Your time is up! $((DURATION/60)) minutes" | festival --tts
+        echo "$((DURATION/60)) minutes" | festival --tts
 
-        play "./Computer_Magic.wav"
 		for i in `seq 1 180`;    		# for i = 1:180 (i.e. 180 seconds)
 		do
 			clear					# flash on
