@@ -29,7 +29,7 @@ install tree
 install autojump
 
 # Latest vim
-sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository ppa:jonathonf/vim -y
 sudo apt-get update
 install vim
 

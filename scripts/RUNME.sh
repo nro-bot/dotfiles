@@ -1,9 +1,9 @@
 #!/bin/bash
 
-./scripts/symlink_dotfiles.sh
-./scripts/aptinstall.sh
-./scripts/setup_programs.sh
-./scripts/gnome_settings.sh
+./symlink_dotfiles.sh
+./aptinstall.sh
+./setup_programs.sh
+./gnome_settings.sh
 
 # Get all upgrades
 sudo apt upgrade -y

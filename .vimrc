@@ -125,9 +125,9 @@ set colorcolumn=80 " display line at textwidth
 
 " -------------------------------
 " Colorscheme
-"colorscheme desert
+colorscheme desert " must be this for dotfiles.git install script to work
 "colorscheme molokai
-colorscheme gruvbox
+"colorscheme gruvbox
 "colorscheme OceanicNext
 "colorscheme happy_hacking
 set background=dark
