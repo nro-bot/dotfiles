@@ -60,3 +60,6 @@ gnome-shell-extension-tool -e Vitals@CoreCoding.com
 #cp ../img/lock.jpg ~/lock.jpg
 #gsettings set org.gnome.desktop.background picture-uri 'file:///home/v/desktop.jpg'
 #gsettings set org.gnome.desktop.screensaver picture-uri 'file:///home/v/lock.jpg'
+
+gsettings set org.gnome.desktop.wm.preferences focus-mode 'sloppy'
+gsettings set org.gnome.desktop.default-applications.terminal exec terminator # gnome-terminal

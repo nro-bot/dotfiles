@@ -121,6 +121,8 @@ set autoindent
 set wrap
 set textwidth=80
 set colorcolumn=80 " display line at textwidth
+" verbose highlight ColorColumn " to debug
+hi ColorColumn guibg=LightBlue
 
 
 " -------------------------------
@@ -404,3 +406,4 @@ sunmap e
 "syn match FCallKeyword /\i*\ze\s*=[^=]/ contained
 "hi FCallKeyword ctermfg=yellow
 "hi FName ctermfg=blue
+"
