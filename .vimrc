@@ -122,12 +122,12 @@ set wrap
 set textwidth=80
 set colorcolumn=80 " display line at textwidth
 " verbose highlight ColorColumn " to debug
-hi ColorColumn guibg=LightBlue
+hi ColorColumn ctermbg=6
 
 
 " -------------------------------
 " Colorscheme
-colorscheme desert " must be this for dotfiles.git install script to work
+"colorscheme desert " must be this for dotfiles.git install script to work
 "colorscheme molokai
 "colorscheme gruvbox
 "colorscheme OceanicNext
