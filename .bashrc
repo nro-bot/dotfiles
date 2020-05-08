@@ -13,6 +13,9 @@ shopt -s histappend
 # Aliases
 # ----------------------
 # -- Bash
+alias pip3='python3 -m pip'
+alias pp='python3'
+alias ipp='ipython'
 alias cp='cp -rv'
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls --color=auto -alh --group-directories-first'
@@ -22,9 +25,11 @@ alias mv='mv -v'
 alias wget='wget -c'
 
 # -- Python
-alias mkenv='python3 -m venv env'
+alias mkenv='python3 -m venv env && startenv && pip3 install --upgrade pip && pip3 install wheel && echo done'
+alias installsci='source ./env/bin/activate && which python && pip3 install numpy scipy matplotlib jupyter && deactivate && echo done'
+alias installml='source ./env/bin/activate && which python && pip3 install pillow opencv-contrib-python torch keras tensorflow gym && echo done'
 alias senv='source ~/v3/bin/activate'
-alias startenv='source env/bin/activate && which python3'
+alias startenv='source ./env/bin/activate && which python3'
 alias stopenv='deactivate'
 
 # --- Git
@@ -126,10 +131,17 @@ function todone() { sed -i -e "/$*/d" $TODO; }
 
 
 # Persist agents
+#if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  #eval `ssh-agent`
+  #ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+#fi
+#export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+#ssh-add -l > /dev/null || ssh-add
 
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l > /dev/null || ssh-add
+
+BTMAC=00:00:00:00:89:97
+BTMAC2=00:00:00:00:E6:13
+
+alias con1='<<< "connect $BTMAC" bluetoothctl'
+alias con2='<<< "connect $BTMAC2" bluetoothctl'
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jade/Documents/projects/ATC3DGTracker/lib

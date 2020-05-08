@@ -1,5 +1,4 @@
 "START_ -------------------------------
-"o
 " Set up Vundle and packages
 " (ALE linting, autofix; completor for autocomplete; adding more themes)
 " -------------------------------
@@ -125,10 +124,10 @@ set colorcolumn=80 " display line at textwidth
 
 " -------------------------------
 " Colorscheme
-"colorscheme desert
+"colorscheme desert " must start on this or will interrupt dotfiles install
 "colorscheme molokai
-colorscheme gruvbox
-"colorscheme OceanicNext
+"colorscheme gruvbox 
+colorscheme OceanicNext
 "colorscheme happy_hacking
 set background=dark
 
@@ -149,6 +148,7 @@ nnoremap ,l :lclose " close location window (where ALE displays errors)
 nnoremap ,o :colorscheme
 nnoremap ,m :mksession! ~/session.vim
 nnoremap ,r :source ~/session.vim
+nnoremap ,e :let g:completor_python_binary = './env/bin/python'
 
 map <Leader>n :NERDTreeToggle<CR>
 
@@ -186,7 +186,7 @@ set title
 set nohlsearch
 hi Search guibg=LightBlue
 " making it possible to see cursor when highlighting matching parenthesis
-"hi MatchParen cterm=bold ctermbg=none ctermfg=none
+hi MatchParen cterm=bold ctermbg=none ctermfg=none
 " NOTE show whitespace with :set list
 
 

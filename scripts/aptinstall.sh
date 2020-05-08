@@ -58,6 +58,8 @@ install sox
 # Python
 install python3-venv
 install python3-pip
+install python3-dev 
+install python3-wheel
 
 # Snaps
 install snapd
@@ -86,3 +88,11 @@ install dconf-editor
 install fcitx-googlepinyin
 
 
+# pip install setuptools --upgrade
+# pip3 install --upgrade pip
+# sudo apt install python-wheel-common
+
+
+# pip3 install --upgrade pip
+
+install texlive-science
