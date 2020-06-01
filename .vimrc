@@ -118,16 +118,18 @@ set autoindent
 
 
 set wrap
-set textwidth=80
-set colorcolumn=80 " display line at textwidth
+set textwidth=75
+set colorcolumn=75 " display line at textwidth
+" verbose highlight ColorColumn " to debug
+hi ColorColumn ctermbg=6
 
 
 " -------------------------------
 " Colorscheme
 "colorscheme desert " must start on this or will interrupt dotfiles install
-"colorscheme molokai
+colorscheme molokai
 "colorscheme gruvbox 
-colorscheme OceanicNext
+"colorscheme OceanicNext
 "colorscheme happy_hacking
 set background=dark
 
@@ -404,3 +406,4 @@ sunmap e
 "syn match FCallKeyword /\i*\ze\s*=[^=]/ contained
 "hi FCallKeyword ctermfg=yellow
 "hi FName ctermfg=blue
+"

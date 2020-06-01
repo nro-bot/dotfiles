@@ -27,11 +27,15 @@ install tmux
 install exuberant-ctags
 install tree
 install autojump
+install terminator 
 
 # Latest vim
-sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository ppa:jonathonf/vim -y
 sudo apt-get update
-install vim
+install vim-gtk3 # enable mouse middle-click copy paste
+
+# gedit zoom in/out
+sudo apt-get install -y gedit-plugin-text-size
 
 # Image processing
 install jpegoptim
@@ -96,3 +100,9 @@ install fcitx-googlepinyin
 # pip3 install --upgrade pip
 
 install texlive-science
+
+
+# unstable nightly release
+# sudo add-apt-repository ppa:andreasbutti/xournalpp-master
+# sudo apt update
+# sudo apt install xournalpp
