@@ -39,7 +39,7 @@ alias gaa='git add .'
 alias gcmm='git commit'
 alias gcm='git commit --message'
 alias gp='git push'
-alias gpl='git pull'
+alias gpp='git pull'
 alias gs='git status'
 alias gco='git checkout'
 

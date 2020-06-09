@@ -35,15 +35,15 @@ sudo apt-get update
 install vim-gtk3 # enable mouse middle-click copy paste
 
 # gedit zoom in/out
-sudo apt-get install -y gedit-plugin-text-size
+#sudo apt-get install -y gedit-plugin-text-size
 
 # Image processing
 install jpegoptim
 install optipng
 
 # Media
-install gimp
-install inkscape
+#install gimp
+#install inkscape
 install ffmpeg
 
 # Fun stuff
@@ -67,17 +67,18 @@ install python3-wheel
 
 # Snaps
 install snapd
-sudo snap install code --classic
+# VS Studio editor
+# sudo snap install code --classic
 #sudo snap install
 
 
 # Data science 
-install python-numpy
-install python-scipy
-install python-matplotlib
-install ipython
-install jupyter
-install python-pandas 
+#install python-numpy
+#install python-scipy
+#install python-matplotlib
+#install ipython
+#install jupyter
+#install python-pandas 
 #python-sympy python-nose spyder
 
 
@@ -86,10 +87,10 @@ install python-pandas
 # npm install hexo-cli -g
 
 # Settings
-install dconf-editor
+#install dconf-editor
 
 # Chinese
-install fcitx-googlepinyin
+#install fcitx-googlepinyin
 
 
 # pip install setuptools --upgrade
@@ -99,7 +100,7 @@ install fcitx-googlepinyin
 
 # pip3 install --upgrade pip
 
-install texlive-science
+#install texlive-science
 
 
 # unstable nightly release
