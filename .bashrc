@@ -1,13 +1,21 @@
 # History control
 # don't use duplicate lines or lines starting with space
-HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
+#HISTSIZE=1000
+#HISTFILESIZE=2000
 
 # ------- CUSTOM BELOW ---------
 
-# append to the history file instead of overwrite
+# ------- CUSTOM BELOW ---------
+# Save all commands (negative = no limit)
+HISTSIZE=-1
+HISTFILESIZE=-1
+# https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+# Avoid duplicates
+HISTCONTROL=ignoredups:erasedups
+# When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # ----------------------
 # Aliases
