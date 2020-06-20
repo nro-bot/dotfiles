@@ -1,13 +1,18 @@
 # History control
-# don't use duplicate lines or lines starting with space
-HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
+#HISTSIZE=1000
+#HISTFILESIZE=2000
 
 # ------- CUSTOM BELOW ---------
-
-# append to the history file instead of overwrite
+# Save all commands (negative = no limit)
+HISTSIZE=-1
+HISTFILESIZE=-1
+# https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+# Avoid duplicates
+HISTCONTROL=ignoredups:erasedups
+# When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # ----------------------
 # Aliases
@@ -39,9 +44,10 @@ alias gaa='git add .'
 alias gcmm='git commit'
 alias gcm='git commit --message'
 alias gp='git push'
-alias gpp='git pull'
+alias gpl='git pull'
 alias gs='git status'
 alias gco='git checkout'
+alias gc='git clone'
 
 # Use programs without a root-equivalent group
 # alias npm='sudo npm'
