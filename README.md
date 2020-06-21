@@ -1,3 +1,13 @@
+# Fork by nouyang
+
+Original source:
+https://github.com/victoriadrake/dotfiles/
+
+What I added: 
+Set up a ssh key
+Terminal Timer (for pomodoros), with sound effect (.wav)
+Removed a lot of visual studio stuff
+
 # Quickstart
 
 ```
