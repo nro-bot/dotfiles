@@ -34,7 +34,7 @@ alias wget='wget -c'
 
 # -- Python
 alias mkenv='python3 -m venv env && startenv && pip3 install --upgrade pip && pip3 install wheel && echo done'
-alias installsci='source ./env/bin/activate && which python && pip3 install numpy scipy matplotlib jupyter && deactivate && echo done'
+alias installsci='source ./env/bin/activate && which python && pip3 install numpy scipy matplotlib jupyter pandas seabor && deactivate && echo done'
 alias installml='source ./env/bin/activate && which python && pip3 install pillow opencv-contrib-python torch keras tensorflow gym && echo done'
 alias senv='source ~/v3/bin/activate'
 alias startenv='source ./env/bin/activate && which python3'
