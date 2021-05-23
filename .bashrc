@@ -104,17 +104,27 @@ export PS1='\[\033[93m\]\t \[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31
 norm="$(printf '\033[0m')" #returns to "normal"
 bold="$(printf '\033[0;1m')" #set bold
 red="$(printf '\033[0;31m')" #set red
-boldyellowonblue="$(printf '\033[0;1;33;44m')" #set bold, and set red.
-boldyellow="$(printf '\033[0;1;33m')" #set bold, and set red.
-boldred="$(printf '\033[0;1;31m')" #set bold, and set red.
+boldyellowonblue="$(printf '\033[0;1;33;44m')" #set blue bkgrd, bold yellow text
+boldyellow="$(printf '\033[0;1;33m')" #set gold yellow text
+boldred="$(printf '\033[0;1;31m')" #set bold red
 
 # Color error messages from python, use as "copython test.py" instead of "python test.py"
 # WARNING: Takes time to run (small but noticeable)
+# May also interfer with print to console (for long running programs) 
 copython() {
-        python $@ 2>&1 | sed -e "s/Traceback/${boldyellowonblue}&${norm}/g" \
-        -e "s/File \".*\.py\".*$/${boldyellow}&${norm}/g" \
-        -e "s/\, line [[:digit:]]\+/${boldred}&${norm}/g"
-}
+    python $@ 2>&1 | sed -e "s/Traceback/${boldyellowonblue}&${norm}/g" \
+        -e "s/File \".*\.py\".*$/${bold}&${norm}/g" \
+        -re "s/\, line [0-9]\+/${boldred}&${norm}/g" \
+        -re "s/ {4}(.*)$/${boldyellow}&${norm}/g" \ 
+        -e "s/.*Error:.*$/${boldred}&${norm}/g" \
+ 
+    # -r: extended, not need escape parens: https://stackoverflow.com/a/2778096
+    # Note: sed does not have \d shorthand; use [0-9] or [[:digit:]]
+    
+#  File "error.py", line 2  <-- Match all line including File, then match anything containing digits onward
+#    asdf  <- match anything after four spaces, including spaces
+#    ^
+# IndentationError: unexpected indent <-- Match anything including "Error" in the line
 
 # -----
 # Custom functions
