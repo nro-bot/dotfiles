@@ -118,6 +118,7 @@ copython() {
         -re "s/ {4}(.*)$/${boldyellow}&${norm}/g" \ 
         -e "s/.*Error:.*$/${boldred}&${norm}/g" \
  
+ }
     # -r: extended, not need escape parens: https://stackoverflow.com/a/2778096
     # Note: sed does not have \d shorthand; use [0-9] or [[:digit:]]
     
