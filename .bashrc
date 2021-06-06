@@ -165,5 +165,6 @@ alias con1='<<< "connect $BTMAC" bluetoothctl'
 alias con2='<<< "connect $BTMAC2" bluetoothctl'
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jade/Documents/projects/ATC3DGTracker/lib
 # Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
+# export GEM_HOME="$HOME/gems"
+# export PATH="$HOME/gems/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
