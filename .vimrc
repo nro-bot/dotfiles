@@ -126,8 +126,8 @@ hi ColorColumn ctermbg=6
 
 " -------------------------------
 " Colorscheme
-"colorscheme desert " must start on this or will interrupt dotfiles install
-colorscheme molokai
+colorscheme desert " must start on this or will interrupt dotfiles install
+"colorscheme molokai " do NOT start on this or will interrupt dotfiles install
 "colorscheme gruvbox 
 "colorscheme OceanicNext
 "colorscheme happy_hacking
