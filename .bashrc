@@ -40,6 +40,8 @@ alias senv='source ~/v3/bin/activate'
 alias startenv='source ./env/bin/activate && which python3'
 alias stopenv='deactivate'
 
+alias jlab='jupyter lab'
+
 # --- Git
 alias ga='git add'
 alias gr='git rm'
@@ -50,6 +52,7 @@ alias gp='git push'
 alias gpl='git pull'
 alias gs='git status'
 alias gco='git checkout'
+
 
 # Use programs without a root-equivalent group
 # alias npm='sudo npm'
