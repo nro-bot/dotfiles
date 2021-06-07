@@ -12,3 +12,5 @@ pip3 install torch torchvision opencv-python # machine learning
 
 pip install jupyterlab_vim 
 jupyter labextension list
+
+pip install tqdm
