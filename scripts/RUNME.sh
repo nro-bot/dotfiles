@@ -4,6 +4,7 @@
 ./aptinstall.sh
 ./setup_programs.sh
 ./gnome_settings.sh
+./duckie.sh
 
 # Get all upgrades
 sudo apt upgrade -y

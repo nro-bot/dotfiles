@@ -56,8 +56,8 @@ install festival
 install sox
 
 # Save thinkpad laptop battery
-# install tlp
-# sudo tlp setcharge 70 80 BAT0
+install tlp
+sudo tlp setcharge 70 80 BAT0
 
 # Python
 install python3-venv
@@ -73,11 +73,11 @@ sudo snap install code --classic
 
 # Data science 
 install python-numpy
-install python-scipy
-install python-matplotlib
-install ipython
+#install python-scipy # fails on 20.04
+#install python-matplotlib # fails on 20.04
+#install ipython  # fails on 20.04
 install jupyter
-install python-pandas 
+#install python-pandas  # fails on 20.04
 #python-sympy python-nose spyder
 
 
@@ -93,7 +93,7 @@ install fcitx-googlepinyin
 
 
 # pip install setuptools --upgrade
-# pip3 install --upgrade pip
+pip3 install --upgrade pip
 # sudo apt install python-wheel-common
 
 
@@ -110,3 +110,8 @@ install texlive-science
 # TMUX
 install xsel
 install xclip
+
+
+# Livestream
+#sudo add-apt-repository ppa:obsproject/obs-studio
+#sudo apt install obs-studio
