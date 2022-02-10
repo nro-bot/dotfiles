@@ -59,6 +59,7 @@ alias gpl='git pull'
 alias gs='git status'
 alias gco='git checkout'
 
+
 # Use programs without a root-equivalent group
 # alias npm='sudo npm'
 
@@ -127,6 +128,7 @@ copython() {
         -e "s/.*Error:.*$/${boldred}&${norm}/g" \
     }
  
+ }
     # -r: extended, not need escape parens: https://stackoverflow.com/a/2778096
     # Note: sed does not have \d shorthand; use [0-9] or [[:digit:]]
     
@@ -189,10 +191,11 @@ function audioss() {
 #alias con2='<<< "connect $BTMAC2" bluetoothctl'
 
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jade/Documents/projects/ATC3DGTracker/lib
+
 # Install Ruby Gems to ~/gems
 #export GEM_HOME="$HOME/gems"
 #export PATH="$HOME/gems/bin:$PATH"
-export PATH=${PATH}:${HOME}/.local/bin
-
+#export PATH=${PATH}:${HOME}/.local/bin
+export PATH="$HOME/.local/bin:$PATH"
 
 alias ipython='ipython3'
