@@ -16,6 +16,7 @@ HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 # After each command, append to the history file and reread it
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+EXECIGNORE=$(which signal-desktop):/snap/bin/signal-desktop
 
 # ----------------------
 # Aliases
@@ -23,6 +24,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; h
 # -- Bash
 alias pip3='python3 -m pip'
 alias pp='python3'
+alias ipp='ipython'
 alias ipp='ipython'
 alias cp='cp -rv'
 alias ls='ls --color=auto --group-directories-first'
@@ -32,18 +34,24 @@ alias mkdir='mkdir -pv'
 alias mv='mv -v'
 alias wget='wget -c'
 
+alias findport='sudo lsof -t -i:'  # e.g. -i:9001
+alias killport='sudo fuser -n tcp -k ' #eg -k 9001
+
 # -- Python
 alias mkenv='python3 -m venv env && startenv && pip3 install --upgrade pip && pip3 install wheel && echo done'
-alias installsci='source ./env/bin/activate && which python && pip3 install numpy scipy matplotlib jupyterlab pandas seabor && deactivate && echo done'
+alias installsci='source ./env/bin/activate && which python && pip3 install numpy scipy matplotlib jupyterlab pandas seaborn && deactivate && echo done'
 alias installml='source ./env/bin/activate && which python && pip3 install pillow opencv-contrib-python torch keras tensorflow gym && echo done'
 alias senv='source ~/v3/bin/activate'
 alias startenv='source ./env/bin/activate && which python3'
 alias stopenv='deactivate'
 
+alias jlab='jupyter lab'
+
 # --- Git
 alias ga='git add'
 alias gr='git rm'
 alias gaa='git add .'
+alias gcl='git clone'
 alias gcmm='git commit'
 alias gcm='git commit --message'
 alias gp='git push'
@@ -117,6 +125,7 @@ copython() {
         -re "s/\, line [0-9]\+/${boldred}&${norm}/g" \
         -re "s/ {4}(.*)$/${boldyellow}&${norm}/g" \ 
         -e "s/.*Error:.*$/${boldred}&${norm}/g" \
+    }
  
     # -r: extended, not need escape parens: https://stackoverflow.com/a/2778096
     # Note: sed does not have \d shorthand; use [0-9] or [[:digit:]]
@@ -125,6 +134,7 @@ copython() {
 #    asdf  <- match anything after four spaces, including spaces
 #    ^
 # IndentationError: unexpected indent <-- Match anything including "Error" in the line
+}
 
 # -----
 # Custom functions
@@ -160,9 +170,29 @@ function todone() { sed -i -e "/$*/d" $TODO; }
 BTMAC=00:00:00:00:89:97
 BTMAC2=00:00:00:00:E6:13
 
-alias con1='<<< "connect $BTMAC" bluetoothctl'
-alias con2='<<< "connect $BTMAC2" bluetoothctl'
+SUPEREQ1MAC=00:23:03:00:B1:A7
+
+alias con='<<< "connect $SUPEREQ1MAC" bluetoothctl'
+alias dcon='<<< "disconnect $SUPEREQ1MAC" bluetoothctl' 
+
+function audioss() {
+    sinks=($(pacmd list-sinks | grep index | \
+        awk '{ if ($1 == "*") print "1",$3; else print "0",$2 }'));
+    inputs=($(pacmd list-sink-inputs | grep index | awk '{print $2}'));
+
+    [[ ${sinks[0]} = 0 ]] && swap=${sinks[1]} || swap=${sinks[3]};
+
+    pacmd set-default-sink $swap &> /dev/null;
+}
+
+#alias audios= # switch
+#alias con2='<<< "connect $BTMAC2" bluetoothctl'
+
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jade/Documents/projects/ATC3DGTracker/lib
 # Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
+#export GEM_HOME="$HOME/gems"
+#export PATH="$HOME/gems/bin:$PATH"
+export PATH=${PATH}:${HOME}/.local/bin
+
+
+alias ipython='ipython3'
