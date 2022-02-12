@@ -120,15 +120,15 @@ boldred="$(printf '\033[0;1;31m')" #set bold red
 # Color error messages from python, use as "copython test.py" instead of "python test.py"
 # WARNING: Takes time to run (small but noticeable)
 # May also interfer with print to console (for long running programs) 
+
 copython() {
     python $@ 2>&1 | sed -e "s/Traceback/${boldyellowonblue}&${norm}/g" \
         -e "s/File \".*\.py\".*$/${bold}&${norm}/g" \
         -re "s/\, line [0-9]\+/${boldred}&${norm}/g" \
         -re "s/ {4}(.*)$/${boldyellow}&${norm}/g" \ 
-        -e "s/.*Error:.*$/${boldred}&${norm}/g" \
+        -e "s/.*Error:.*$/${boldred}&${norm}/g" 
     }
  
- }
     # -r: extended, not need escape parens: https://stackoverflow.com/a/2778096
     # Note: sed does not have \d shorthand; use [0-9] or [[:digit:]]
     
@@ -136,7 +136,6 @@ copython() {
 #    asdf  <- match anything after four spaces, including spaces
 #    ^
 # IndentationError: unexpected indent <-- Match anything including "Error" in the line
-}
 
 # -----
 # Custom functions
@@ -175,7 +174,7 @@ BTMAC2=00:00:00:00:E6:13
 SUPEREQ1MAC=00:23:03:00:B1:A7
 
 alias con='<<< "connect $SUPEREQ1MAC" bluetoothctl'
-alias dcon='<<< "disconnect $SUPEREQ1MAC" bluetoothctl' 
+alias dcon='<<< "disconnect $SUPEREQ1MAC" bluetoothctl'
 
 function audioss() {
     sinks=($(pacmd list-sinks | grep index | \
@@ -195,7 +194,5 @@ function audioss() {
 # Install Ruby Gems to ~/gems
 #export GEM_HOME="$HOME/gems"
 #export PATH="$HOME/gems/bin:$PATH"
-#export PATH=${PATH}:${HOME}/.local/bin
-export PATH="$HOME/.local/bin:$PATH"
-
-alias ipython='ipython3'
+export PATH=${PATH}:${HOME}/.local/bin
+#export PATH='$HOME/.local/bin:$PATH'
