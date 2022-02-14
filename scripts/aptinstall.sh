@@ -57,7 +57,6 @@ install sox
 
 # Save thinkpad laptop battery
 install tlp
-sudo tlp setcharge 70 80 BAT0
 
 # Python
 install python3-venv

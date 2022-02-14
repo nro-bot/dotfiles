@@ -63,3 +63,24 @@ notes: get used to ll, gcmm
 # Note for updating
 
 Change ./git/config to git@github.com:nouyang/dotfiles.git
+
+
+# Notes 
+
+also see 
+
+https://github.com/victoriadrake/dotfiles
+
+Where `SETTINGS_BACKUP` is wherever you backed up/want to back up your settings (aptly named, isn't it?), load settings.dconf with:
+
+```
+dconf load /org/gnome/ < $(SETTINGS_BACKUP)/.config/dconf/settings.dconf
+```
+
+Back up new settings with:
+
+```
+dconf dump /org/gnome/ > $(SETTINGS_BACKUP)/.config/dconf/settings.dconf
+```
+
+Run `man dconf` on your machine for more.
