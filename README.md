@@ -58,3 +58,8 @@ My personal set-up scripts. I wrote about these in this [accompanying article](h
 - change to quite alert sound
 
 notes: get used to ll, gcmm
+
+
+# Note for updating
+
+Change ./git/config to git@github.com:nouyang/dotfiles.git
