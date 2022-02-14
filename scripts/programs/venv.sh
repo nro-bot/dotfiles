@@ -1,3 +1,5 @@
+echo "🐍 Installing Python virtual environment"
+
 python3 -m venv ~/v3 
 source ~/v3/bin/activate
 

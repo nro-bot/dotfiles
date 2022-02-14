@@ -3,9 +3,6 @@
 ./symlink_dotfiles.sh
 ./aptinstall.sh
 ./setup_programs.sh
-./gnome_settings.sh
-#./duckie.sh
-# ./docker.sh
 
 # Get all upgrades
 sudo apt upgrade -y

@@ -64,21 +64,15 @@ install python3-venv
 install python3-pip
 install python3-dev 
 install python3-wheel
+pip3 install --upgrade pip
 
 # Snaps
 install snapd
 sudo snap install code --classic
-#sudo snap install
-
 
 # Data science 
-install python-numpy
-#install python-scipy # fails on 20.04
-#install python-matplotlib # fails on 20.04
-#install ipython  # fails on 20.04
-install jupyter
-#install python-pandas  # fails on 20.04
-#python-sympy python-nose spyder
+#install python-numpy
+#install jupyter
 
 
 # Blog
@@ -91,16 +85,9 @@ install dconf-editor
 # Chinese
 install fcitx-googlepinyin
 
-
-# pip install setuptools --upgrade
-pip3 install --upgrade pip
-# sudo apt install python-wheel-common
-
-
 install texlive-science
 
-
-# unstable nightly release
+# Unstable nightly release for xournalpp
 # sudo add-apt-repository ppa:andreasbutti/xournalpp-master
 # sudo apt update
 # sudo apt install xournalpp
