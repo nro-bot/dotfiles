@@ -1,16 +1,16 @@
 echo "⌨️  Installing VSCode extensions"
 
-function install {
+function vsinstall {
   name="${1}"
   code --install-extension ${name} --force
 }
 
-install ms-python.python
-install ms-python.vscode-pylance
-install ms-toolsai.jupyter
-install ms-toolsai.jupyter-keymap
-install ms-toolsai.jupyter-renderers
-install ms-vscode-remote.remote-ssh
-install ms-vscode-remote.remote-ssh-edit
-install VisualStudioExptTeam.vscodeintellicode
-install vscodevim.vim
+vsinstall ms-python.python
+vsinstall ms-python.vscode-pylance
+vsinstall ms-toolsai.jupyter
+vsinstall ms-toolsai.jupyter-keymap
+vsinstall ms-toolsai.jupyter-renderers
+vsinstall ms-vscode-remote.remote-ssh
+vsinstall ms-vscode-remote.remote-ssh-edit
+vsinstall VisualStudioExptTeam.vscodeintellicode
+vsinstall vscodevim.vim

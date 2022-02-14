@@ -19,7 +19,9 @@ gnome-shell-extension-prefs
 
 source ~/.bashrc # requires `bash RUNME.sh` instead of `sh RUNME.sh`
 
+# Clean up 
+sudo apt autoremove -y
+
 # Fun hello
 figlet "... and we're back!" | lolcat
-
 # note: issues with sudo? try chmod  0440  /etc/sudoers
