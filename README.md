@@ -1,3 +1,11 @@
+
+# Quickstart 
+Run 
+```
+cd ./scripts
+bash ./RUNME.sh
+```
+
 # Fork by nouyang
 
 Original source:
@@ -8,12 +16,7 @@ Set up a ssh key
 Terminal Timer (for pomodoros), with sound effect (.wav)
 Removed a lot of visual studio stuff
 
-# Quickstart
 
-```
-cd ./scripts
-sh ./RUNME.sh
-```
 
 ## To add script
 

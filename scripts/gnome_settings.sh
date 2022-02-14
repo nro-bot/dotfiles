@@ -15,7 +15,6 @@ gsettings set org.gnome.desktop.screensaver show-notifications false
 #gsettings set org.gnome.shell.overrides workspaces-only-on-primary false
 #gsettings set org.gnome.mutter dynamic-workspaces true
 #gsettings set org.gnome.mutter workspaces-only-on-primary false
-org.gnome.desktop.wm.preferences focus-mode 'sloppy' #hover focuses window
 
 
 # GNOME Extensions
@@ -28,23 +27,24 @@ git clone https://github.com/home-sweet-gnome/dash-to-panel.git panel
 cd panel && make install
 cd ..
 rm -rf panel
-gnome-shell-extension-tool -e dash-to-panel
+gnome-extensions install dash-to-panel
+gnome-extensions enable dash-to-panel
 
 git clone https://github.com/gTile/gTile.git ~/.local/share/gnome-shell/extensions/gTile@vibou
-gnome-shell-extension-tool -e gTile
+gnome-extensions enable gTile
 
-git clone https://github.com/roberth-k/gnome-shell-extension-battery_status.git 
-cd gnome-shell-extension-battery_status
-mv battery_status@milliburn.github.com
-~/.local/share/gnome-shell/extensions/battery_status@milliburn.github.com
-cd ..
-rm -rf gnome-shell-extension-battery_status
-gnome-shell-extension-tool -e battery_status
+# git clone https://github.com/roberth-k/gnome-shell-extension-battery_status.git 
+# cd gnome-shell-extension-battery_status
+# mv battery_status@milliburn.github.com
+# ~/.local/share/gnome-shell/extensions/battery_status@milliburn.github.com
+# cd ..
+# rm -rf gnome-shell-extension-battery_status
+# gnome-extensions -e battery_status
 
 
-sudo apt install gir1.2-gtop-2.0 lm-sensors
+sudo apt install lm-sensors
 git clone https://github.com/corecoding/Vitals.git ~/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com
-gnome-shell-extension-tool -e Vitals@CoreCoding.com
+gnome-extensions enable Vitals@CoreCoding.com
 
 
 # Now do the pretty stuff (`gsettings list-recursively` for all)
@@ -61,5 +61,5 @@ gnome-shell-extension-tool -e Vitals@CoreCoding.com
 #gsettings set org.gnome.desktop.background picture-uri 'file:///home/v/desktop.jpg'
 #gsettings set org.gnome.desktop.screensaver picture-uri 'file:///home/v/lock.jpg'
 
-gsettings set org.gnome.desktop.wm.preferences focus-mode 'sloppy'
+gsettings set org.gnome.desktop.wm.preferences focus-mode 'sloppy'  #hover focuses window
 gsettings set org.gnome.desktop.default-applications.terminal exec terminator # gnome-terminal

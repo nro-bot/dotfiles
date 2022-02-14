@@ -97,8 +97,6 @@ pip3 install --upgrade pip
 # sudo apt install python-wheel-common
 
 
-# pip3 install --upgrade pip
-
 install texlive-science
 
 
