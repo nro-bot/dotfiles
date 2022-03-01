@@ -25,3 +25,5 @@
 
 [diff]
 	tool = vimdiff
+[cola]
+	spellcheck = false

@@ -1,0 +1,8 @@
+{
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.pythonPath": "~/v3/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "jupyter.askForKernelRestart": false,
+    "workbench.colorTheme": "Default Light+"
+}

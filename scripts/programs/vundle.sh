@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "📦 Installing Vundle"
 
 # Vundle plugin manager
 mkdir -p $HOME/.vim/bundle
