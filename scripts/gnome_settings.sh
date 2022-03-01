@@ -15,7 +15,6 @@ gsettings set org.gnome.desktop.screensaver show-notifications false
 #gsettings set org.gnome.shell.overrides workspaces-only-on-primary false
 #gsettings set org.gnome.mutter dynamic-workspaces true
 #gsettings set org.gnome.mutter workspaces-only-on-primary false
-org.gnome.desktop.wm.preferences focus-mode 'sloppy' #hover focuses window
 
 
 # GNOME Extensions
