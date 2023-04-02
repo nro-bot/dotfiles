@@ -85,6 +85,8 @@ install dconf-editor
 install fcitx-googlepinyin
 
 install texlive-science
+install texlive-latex-extra
+install chktex
 
 # Unstable nightly release for xournalpp
 # sudo add-apt-repository ppa:andreasbutti/xournalpp-master
