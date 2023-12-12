@@ -2,7 +2,7 @@
 " Set up Vundle and packages
 " (ALE linting, autofix; completor for autocomplete; adding more themes)
 " -------------------------------
-
+set path+=** "allow autocomplete from parts of filenames
 filetype off                  " required
 
 " ---- Vundle ----
